@@ -99,7 +99,6 @@ namespace FourInARow.Store.GameUseCase
             {
                 EFieldType DiagonalChecker(int X, int Y)
                 {
-                    Console.WriteLine($"Diag: {X} {Y}");
                     EFieldType Winner = EFieldType.UNKNOWN;
                     EFieldType prevCell = board[X, Y];
                     int count = 1;
@@ -164,7 +163,6 @@ namespace FourInARow.Store.GameUseCase
             {
                 EFieldType DiagonalChecker(int X, int Y)
                 {
-                    Console.WriteLine($"Diag: {X} {Y}");
                     EFieldType Winner = EFieldType.UNKNOWN;
                     EFieldType prevCell = board[X, Y];
                     int count = 1;
