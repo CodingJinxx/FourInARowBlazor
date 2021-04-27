@@ -1,0 +1,19 @@
+@using FourInARow.Game
+<div class="cell @(Type == EFieldType.RED ? "red" : Type == EFieldType.BLUE ? "blue" : "")" @onclick="HandleClick">
+</div>
+
+@code {
+    [Parameter] 
+    public EFieldType Type { get; set; }
+    
+    [Parameter]
+    public int X { get; init; }
+    
+    [Parameter]
+    public int Y { get; init; }
+    
+    [Parameter]
+    public Action<int, int> onClick { get; set; }
+
+    private void HandleClick() => onClick(X, Y);
+}
