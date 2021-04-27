@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Fluxor;
 using FourInARow.Game;
 
@@ -96,7 +97,132 @@ namespace FourInARow.Store.GameUseCase
 
             // Diagonal l -> r
             {
-                int maxDiag = Math.Max(board.GetLength(0), board.GetLength(1));
+                EFieldType DiagonalChecker(int X, int Y)
+                {
+                    Console.WriteLine($"Diag: {X} {Y}");
+                    EFieldType Winner = EFieldType.UNKNOWN;
+                    EFieldType prevCell = board[X, Y];
+                    int count = 1;
+                    while (Y > 0 && X < board.GetLength(0) - 1)
+                    {
+                        if (prevCell == EFieldType.UNKNOWN)
+                        {
+                            X++;
+                            Y--;
+
+                            prevCell = board[X, Y];
+                            count = 1;
+                        }
+                        else
+                        {
+                            X++;
+                            Y--;
+
+                            if (prevCell == board[X, Y])
+                            {
+                                count++;
+                            }
+                            else
+                            {
+                                count = 1;
+                            }
+                        }
+
+                        if (count >= 4)
+                        {
+                            Winner = prevCell;
+                        }
+                    }
+
+                    return Winner;
+                }
+
+                int X = 0;
+                int Y = 0;
+                for (int i = 0; i < board.GetLength(1) + board.GetLength(0) - 1; i++)
+                {
+                    var Winner = DiagonalChecker(X, Y);
+                    if (Winner != EFieldType.UNKNOWN)
+                    {
+                        winner = Winner;
+                    }
+                    else
+                    {
+                        if (Y < board.GetLength(1) - 1)
+                        {
+                            Y++;
+                        }
+                        else if (X < board.GetLength(0) - 1)
+                        {
+                            X++;
+                        }
+                    }
+                }
+            }
+
+            // Diagonal r - l
+            {
+                EFieldType DiagonalChecker(int X, int Y)
+                {
+                    Console.WriteLine($"Diag: {X} {Y}");
+                    EFieldType Winner = EFieldType.UNKNOWN;
+                    EFieldType prevCell = board[X, Y];
+                    int count = 1;
+                    while (Y > 0 && X > 0)
+                    {
+                        if (prevCell == EFieldType.UNKNOWN)
+                        {
+                            X--;
+                            Y--;
+
+                            prevCell = board[X, Y];
+                            count = 1;
+                        }
+                        else
+                        {
+                            X--;
+                            Y--;
+
+                            if (prevCell == board[X, Y])
+                            {
+                                count++;
+                            }
+                            else
+                            {
+                                count = 1;
+                            }
+                        }
+
+                        if (count >= 4)
+                        {
+                            Winner = prevCell;
+                        }
+                    }
+
+                    return Winner;
+                }
+                
+                int X = board.GetLength(0) - 1;
+                int Y = 0;
+                for (int i = 0; i < board.GetLength(1) + board.GetLength(0) - 1; i++)
+                {
+                    var Winner = DiagonalChecker(X, Y);
+                    if (Winner != EFieldType.UNKNOWN)
+                    {
+                        winner = Winner;
+                    }
+                    else
+                    {
+                        if (Y < board.GetLength(1) - 1)
+                        {
+                            Y++;
+                        }
+                        else if (X >= 0)
+                        {
+                            X--;
+                        }
+                    }
+                }
             }
             
             
