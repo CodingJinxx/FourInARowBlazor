@@ -11,9 +11,17 @@ namespace FourInARow.Pages
         [Inject]
         private IState<GameState> GameState { get; set; }
         
-        protected override async Task OnInitializedAsync()
+        [Inject]
+        public IDispatcher Dispatcher { get; set; }
+
+        private void PlayAction(int column)
         {
-            Console.WriteLine($"{GameState.Value.Board.Width} {GameState.Value.Board.Height}");
+            Dispatcher.Dispatch(new PlayGameAction(column));
+        }
+
+        private void ResetAction()
+        {
+            Dispatcher.Dispatch(new ResetGameAction());
         }
     }
 }

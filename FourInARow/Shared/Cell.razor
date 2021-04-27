@@ -1,6 +1,6 @@
 @using FourInARow.Game
-<div class="cell @(Type == EFieldType.RED ? "red" : Type == EFieldType.BLUE ? "blue" : "")" @onclick="HandleClick">
-</div>
+<div class="my-1 cell @(Type == EFieldType.RED ? "red" : Type == EFieldType.BLUE ? "blue" : "")" @onclick="Type == EFieldType.UNKNOWN ? HandleClick : () => { }"/>
+
 
 @code {
     [Parameter] 

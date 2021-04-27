@@ -1,19 +1,19 @@
+using System;
 using FourInARow.Game;
 
 namespace FourInARow.Store.GameUseCase
 {
-    public class GameState
+    public record GameState 
     {
-        public GameBoard Board { get; set; }
-
-        public GameState()
-        {
-            this.Board = new GameBoard(10, 7);
-        }
+        public EFieldType[,] Board { get; init; }
+        public EFieldType CurrentPlayer { get; init; }
+        public EFieldType Winner { get; init; }
         
-        public GameState(GameBoard state)
+        public GameState(int width, int height)
         {
-            this.Board = state;
+            this.Board = new EFieldType[width, height];
+            CurrentPlayer = EFieldType.RED;
+            Winner = EFieldType.UNKNOWN;
         }
     }
 }

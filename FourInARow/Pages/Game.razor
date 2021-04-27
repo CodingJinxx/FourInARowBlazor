@@ -1,8 +1,52 @@
 @page "/game"
+@using FourInARow.Store.GameUseCase
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-<Board GameBoard="@GameState.Value.Board"/>
+<div class="container">
+    @if (this.GameState.Value.Winner != EFieldType.UNKNOWN)
+    {
+        <div class="row">
+            <div class="col">
+                @if (this.GameState.Value.Winner == EFieldType.RED)
+                {
+                <h1>RED WON!</h1>
+                }
+                else
+                {
+                <h1>BLUE WON!</h1>
+                }
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <button class="btn-primary btn" @onclick="ResetAction">Play Again</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        @for (int i = this.GameState.Value.Board.GetLength(1) - 1; i >= 0; i--)
+        {
+            <div class="row no-gutters">
+                @for (int j = 0; j < this.GameState.Value.Board.GetLength(0); j++)
+                {
+                    <div class="col px-1">
+                        <Cell Type="@this.GameState.Value.Board[j, i]" X="@j" Y="@i" onClick="HandleClick"/>
+                    </div>
+                }
+            </div>
+        }
+        <div class="row mt-2 justify-content-center">
+            <div class="col-2">
+                <button class="btn-primary btn" @onclick="ResetAction">Reset Board</button>
+            </div>
+        </div>
+    }
+</div>
 
 @code {
-
+    private void HandleClick(int x, int y)
+    {
+        PlayAction(x);
+    }
 }

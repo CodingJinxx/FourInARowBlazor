@@ -8,7 +8,7 @@ namespace FourInARow.Store.GameUseCase
 
         protected override GameState GetInitialState()
         {
-            return new GameState();
+            return new GameState(10, 7);
         }
     }
 }
